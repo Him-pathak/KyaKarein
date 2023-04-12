@@ -224,6 +224,8 @@ function PostWidget({ post }) {
 
       <Divider />
 
+            {/* answer */}
+
       {isComments && (
         <Box mt="0.5rem">
           {post?.allAnswers?.map((_a) => (
@@ -260,6 +262,39 @@ function PostWidget({ post }) {
                 {ReactHtmlParser(_a?.answer)}
               </Typography>
               <Divider />
+
+                  {/* footer */}
+                    
+                {/* <FlexBetween mt="0.25rem" mb="0.25rem"> */}
+                  <FlexBetween gap="1rem">
+                    <FlexBetween gap="0.3rem">
+                      <Tooltip title="Upvote" placement="top" arrow>
+                        <IconButton onClick={() => setIsUpVoted(!isUpVoted)}>
+                          {/* currently colour changes on click but should be based on backend count */}
+                          {isUpVoted ? (
+                            <ThumbUpIcon sx={{ color: green["A400"] }} />
+                          ) : (
+                            <ThumbUpOutlined />
+                          )}
+                        </IconButton>
+                      </Tooltip>
+                      <Typography>{anslength}</Typography>
+                    </FlexBetween>
+
+                    <FlexBetween gap="0.3rem">
+                      <Tooltip title="Downvote" placement="top" arrow>
+                        <IconButton onClick={() => setIsDownVoted(!isDownVoted)}>
+                          {isDownVoted ? (
+                            <ThumbDownIcon sx={{ color: red["A400"] }} />
+                          ) : (
+                            <ThumbDownOutlined />
+                          )}
+                        </IconButton>
+                      </Tooltip>
+                      <Typography>{anslength}</Typography>
+                    </FlexBetween>
+                </FlexBetween>
+
             </>
           ))}
         </Box>
