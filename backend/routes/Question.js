@@ -12,6 +12,7 @@ router.post("/", async (req, res) => {
         questionName: req.body.questionName,
         questionUrl: req.body.questionUrl,
         user: req.body.user,
+        audio: req.body.audio,
       })
       .then(() => {
         res.status(201).send({
@@ -63,5 +64,31 @@ router.get("/", async (req, res) => {
     });
   }
 });
+
+
+// router.patch("/:id/likes", async (req, res) => {
+//   try {
+//     const question = await questionDB.findById(req.params.id);
+//     if (!question) {
+//       return res.status(404).send({
+//         status: false,
+//         message: "Question not found",
+//       });
+//     }
+//     const { likes } = req.body;
+//     question.likes = likes;
+//     await question.save();
+//     res.status(200).send({
+//       status: true,
+//       message: "Likes updated successfully",
+//       data: question,
+//     });
+//   } catch (e) {
+//     res.status(500).send({
+//       status: false,
+//       message: "Error while updating likes",
+//     });
+//   }
+// });
 
 module.exports = router;

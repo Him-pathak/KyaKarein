@@ -10,6 +10,7 @@ router.post("/", async (req, res) => {
         answer: req.body.answer,
         questionId: req.body.questionId,
         user: req.body.user,
+        // audio: req.body.audio,
       })
       .then(() => {
         res.status(201).send({

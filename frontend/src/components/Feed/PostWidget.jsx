@@ -3,8 +3,6 @@ import {
   QuestionAnswerOutlined,
   ThumbUpOutlined,
   ThumbDownOutlined,
-  // ThumbUpIcon,
-  // ThumbDownIcon,
   ShareOutlined,
 } from "@mui/icons-material";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -19,9 +17,7 @@ import {
   useTheme,
 } from "@mui/material";
 import FlexBetween from "../../utils/FlexBetween";
-// import Friend from "components/Friend";
 import WidgetWrapper from "../../utils/WidgetWrapper";
-import UserImage from "../../utils/UserImage";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../state/userSlice";
@@ -31,9 +27,7 @@ import { green, red } from "@mui/material/colors";
 import CloseIcon from "@mui/icons-material/Close";
 
 import ReactTimeAgo from "react-time-ago";
-import MyPostWidget from "../widgets/MyPostWidget";
 import AddAnswer from "../widgets/AddAnswer";
-// import { setPost } from "state";
 
 function LastSeen({ date }) {
   return (
@@ -52,7 +46,6 @@ function PostWidget({ post }) {
   const Close = <CloseIcon />;
 
   const dispatch = useDispatch();
-  // const token = useSelector((state) => state.token);
 
   const user = useSelector(selectUser);
 
@@ -60,45 +53,37 @@ function PostWidget({ post }) {
   const main = palette.neutral.main;
   const medium = palette.neutral.medium;
   const primary = palette.primary.main;
-  // const primaryLight = palette.primary.light;
   const primaryDark = palette.primary.dark;
-  // const main = palette.neutral.main;
-
-  //likes
-  // const loggedInUserId = useSelector((state) => state.user._id);
-  // const isLiked = Boolean(likes[loggedInUserId]);
-  // const likeCount = Object.keys(likes).length;
 
   const picturePath = post.questionUrl;
   const anslength = 6;
 
-  // console.log(post?.user?Box
-
-  // const patchLike = async () => {
-  //   const response = await fetch(`http://localhost:3001/posts/${postId}/like`, {
-  //     method: "PATCH",
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ userId: loggedInUserId }),
-  //   });
-  //   const updatedPost = await response.json();
-  //   dispatch(setPost({ post: updatedPost }));
-  // };
+  // async function likeQuestion(id) {
+  //   try {
+  //     const response = await fetch(`/questions/${id}/likes`, {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         likes: ["user1", "user2", "user3"],
+  //       }),
+  //     });
+  //     const data = await response.json();
+  //     console.log(data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
 
   return (
     <WidgetWrapper m="2rem 0">
+
       {/* user description */}
+
       <Box gap="1rem" display={"flex"}>
-        {/* <UserImage image={post?.user?.photo} size="55px" /> */}
         <Avatar src={post?.user?.photo} />
-        <Box
-        // onClick={() => {
-        //   navigate(`/profile/${friendId}`);
-        //   navigate(0);
-        //}}
-        >
+        <Box        >
           <Typography
             color={main}
             variant="h5"
@@ -117,6 +102,7 @@ function PostWidget({ post }) {
           </Typography>
         </Box>
       </Box>
+
       {/* post description */}
 
       <Typography color={main} sx={{ mt: "1rem" }}>
@@ -132,13 +118,24 @@ function PostWidget({ post }) {
         />
       )}
 
+        {/* audio */}
+        
+        {/* <ul style={{ listStyle: "none", padding: 0 }}>
+        {post.audio.map((url) => (
+          <li key={url}>
+            <audio src={url} controls style={{ width: "98%" }} />
+          </li>
+        ))}
+      </ul> */}
+
+
       {/* footer */}
       <FlexBetween mt="0.25rem" mb="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
             <Tooltip title="Upvote" placement="top" arrow>
-              <IconButton onClick={() => setIsUpVoted(!isUpVoted)}>
-                {/* currently colour changes on click but should be based on backend count */}
+              <IconButton onClick={() => setIsUpVoted(!isUpVoted)
+              }>
                 {isUpVoted ? (
                   <ThumbUpIcon sx={{ color: green["A400"] }} />
                 ) : (
@@ -205,7 +202,6 @@ function PostWidget({ post }) {
               transform: "translate(-50%, -50%)",
               width: "30%",
               bgcolor: "background.paper",
-              // border: "2px solid #000",
               boxShadow: 24,
               p: 4,
               borderRadius: "0.75rem",
@@ -231,13 +227,9 @@ function PostWidget({ post }) {
           {post?.allAnswers?.map((_a) => (
             <>
               <Box gap="1rem" display={"flex"} mt="0.5rem">
-                {/* <UserImage image={post?.user?.photo} size="55px" /> */}
                 <Avatar src={_a?.user?.photo} />
                 <Box
-                // onClick={() => {
-                //   navigate(`/profile/${friendId}`);
-                //   navigate(0);
-                //}}
+                
                 >
                   <Typography
                     color={main}
@@ -265,12 +257,10 @@ function PostWidget({ post }) {
 
                   {/* footer */}
                     
-                {/* <FlexBetween mt="0.25rem" mb="0.25rem"> */}
                   <FlexBetween gap="1rem">
                     <FlexBetween gap="0.3rem">
                       <Tooltip title="Upvote" placement="top" arrow>
                         <IconButton onClick={() => setIsUpVoted(!isUpVoted)}>
-                          {/* currently colour changes on click but should be based on backend count */}
                           {isUpVoted ? (
                             <ThumbUpIcon sx={{ color: green["A400"] }} />
                           ) : (

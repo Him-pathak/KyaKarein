@@ -11,6 +11,9 @@ const AnswerSchema = new mongoose.Schema({
     default: Date.now(),
   },
   user: Object,
+  audio: [String],
+  // likes : [String],
+  // dislikes : [String],
 });
 
 module.exports = mongoose.model("Answers", AnswerSchema);

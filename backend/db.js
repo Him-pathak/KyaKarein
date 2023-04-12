@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const url =
-"mongodb+srv://sulochankhadka25:bIhHkgLyBLOFE8U3@cluster0.6yeqqji.mongodb.net/?retryWrites=true&w=majority";
+"mongodb://admin:ELfj3TjKvm6eXZhb@ac-t8b0mpy-shard-00-00.tuokist.mongodb.net:27017,ac-t8b0mpy-shard-00-01.tuokist.mongodb.net:27017,ac-t8b0mpy-shard-00-02.tuokist.mongodb.net:27017/?ssl=true&replicaSet=atlas-yi00hj-shard-0&authSource=admin&retryWrites=true&w=majority";
 
 mongoose.set('strictQuery',true);
 module.exports.connect = () => {

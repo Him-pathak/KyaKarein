@@ -1,11 +1,9 @@
 import {
   EditOutlined,
   DeleteOutlined,
-  PlayCircleOutlined,
   ImageOutlined,
   MicOutlined,
   StopCircle,
-  MoreHorizOutlined,
 } from "@mui/icons-material";
 import {
   Box,
@@ -21,31 +19,36 @@ import {
 import { Avatar } from "@material-ui/core";
 import FlexBetween from "../../utils/FlexBetween";
 import Dropzone from "react-dropzone";
-// import UserImage from "../../utils/UserImage";
 import WidgetWrapper from "../../utils/WidgetWrapper"; //
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectUser } from "../../state/userSlice";
 import axios from "axios";
 import vmsg from "vmsg";
 import { red } from "@mui/material/colors";
 import "./css/Style.css";
-// import { setPost } from "../../state";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "firebase/storage";
+import { storage } from "../../firebase";
+import { v4 } from "uuid";
 
 const recorder = new vmsg.Recorder({
   wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm",
 });
 
-// picture path for user need to be defined
 const MyPostWidget = () => {
-  // const dispatch = useDispatch();
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState("");
   const [question, setQuestion] = useState("");
-  const { palette } = useTheme();
-  // const { _id } = useSelector((state) => state.user);
-  // const token = useSelector((state) => state.token);
+
+
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
+
+  const { palette } = useTheme();
   const mediumMain = palette.neutral.mediumMain;
   const medium = palette.neutral.medium;
 
@@ -54,6 +57,40 @@ const MyPostWidget = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [recordings, setRecordings] = useState([]);
+
+  const imagesListRef = ref(storage, "images/");
+
+
+  // setImageUrl("https://source.unsplash.com/random/300x300")
+
+  // const uploadImage = async () => {
+  //   if (image == null) return;
+  //   const imageRef = ref(storage, `images/${image.name + v4()}`);
+  //   try {
+  //     const snapshot = await uploadBytes(imageRef, image);
+  //     const url = await getDownloadURL(snapshot.ref);
+  //     setImageUrl(prevState => {
+  //       return { ...prevState, url };
+  //     });
+  //     alert(url);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  const uploadImage = () => {
+    if (image == null) return;
+    const imageRef = ref(storage, `images/${image.name + v4()}`);
+    uploadBytes(imageRef, image).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrl((prev) => {
+          return{...prev, url};
+        });
+        // alert(url);
+        // console.log(url);
+      });
+    });
+  };
 
   const record = async () => {
     setIsLoading(true);
@@ -64,6 +101,9 @@ const MyPostWidget = () => {
       setIsLoading(false);
       setIsRecording(false);
       console.log("not recording");
+      // console.log(recordings.concat(URL.createObjectURL(blob)));
+      
+
     } else {
       try {
         await recorder.initAudio();
@@ -81,6 +121,7 @@ const MyPostWidget = () => {
 
   const handleSubmit = async () => {
     if (question !== "") {
+      uploadImage();
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -88,15 +129,17 @@ const MyPostWidget = () => {
       };
       const body = {
         questionName: question,
-        questionUrl: "https://source.unsplash.com/random/300x300",
+        // questionUrl: "https://source.unsplash.com/random/300x300",
+        questionUrl: imageUrl,
         user: user,
+        audio: recordings, 
       };
       await axios
         .post("/api/questions", body, config)
         .then((res) => {
           console.log(res.data);
-          alert(res.data.message);
-          window.location.href = "/";
+          // alert(res.data.message);
+          window.location.href = "/home";
         })
         .catch((e) => {
           console.log(e);
@@ -104,26 +147,6 @@ const MyPostWidget = () => {
         });
     }
   };
-
-  // const handlePost = async () => {
-  //   const formData = new FormData();
-  //   formData.append("userId", _id);
-  //   formData.append("description", post);
-  //   if (image) {
-  //     formData.append("picture", image);
-  //     formData.append("picturePath", image.name);
-  //   }
-
-  //   const response = await fetch(`http://localhost:3001/posts`, {
-  //     method: "POST",
-  //     headers: { Authorization: `Bearer ${token}` },
-  //     body: formData,
-  //   });
-  //   const posts = await response.json();
-  //   dispatch(setPosts({ posts }));
-  //   setImage(null);
-  //   setPost("");
-  // };
 
   return (
     <WidgetWrapper>

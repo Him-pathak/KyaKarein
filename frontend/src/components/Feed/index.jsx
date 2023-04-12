@@ -20,7 +20,6 @@ import "./css/Feed.css";
 import PostWidget from "./PostWidget";
 import axios from "axios";
 import MyPostWidget from "../widgets/MyPostWidget";
-// import PostWidget from "./PostWidget";
 
 function Feed() {
   const [posts, setPosts] = useState([]);
@@ -40,7 +39,6 @@ function Feed() {
       <MyPostWidget/>
       {posts.map((post, index) => (
         <PostWidget key={index} post={post} />
-        // console.log({index});
       ))}
     </div>
   );

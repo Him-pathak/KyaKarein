@@ -23,14 +23,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { setMode, setLogout } from "../../state/userSlice";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../utils/FlexBetween";
-// import { userSlice } from "../../state/userSlice";
 import { selectUser } from "../../state/userSlice";
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  //   const user = useSelector(selectUser);
+  const user = useSelector(selectUser);
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
 
   const theme = useTheme();
@@ -40,11 +39,13 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  //   const fullName = `${user.firstName} ${user.lastName}`;
-  const fullName = `Himanshu`;
+  const fullName = `${user?.userName}`;
+  console.log(user);
+  console.log(user.userName);
+
 
   return (
-    <FlexBetween padding="1rem 6%" backgroundColor={alt}>
+    <FlexBetween padding="0.5rem 6%" backgroundColor={alt}>
       <FlexBetween gap="1.75rem">
         <img src="../Assets/logo.png" alt="" />
         <Typography
