@@ -63,14 +63,23 @@ const MyPostWidget = () => {
 
   // setImageUrl("https://source.unsplash.com/random/300x300")
 
-  const uploadImage = () => {
+  // const uploadImage = () => {
+  //   if (image == null) return;
+  //   const imageRef = ref(storage, `images/${image.name + v4()}`);
+  //   uploadBytes(imageRef, image).then((snapshot) => {
+  //     getDownloadURL(snapshot.ref).then((url) => {
+  //       setImageUrl(url);
+  //     });
+  //   });
+  // };
+
+  const uploadImage = async () => {
     if (image == null) return;
     const imageRef = ref(storage, `images/${image.name + v4()}`);
-    uploadBytes(imageRef, image).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrl(url);
-      });
-    });
+    const snapshot = await uploadBytes(imageRef, image);
+    const url = await getDownloadURL(snapshot.ref);
+    setImageUrl(url);
+    return(url);
   };
 
   const record = async () => {
@@ -102,7 +111,7 @@ const MyPostWidget = () => {
 
   const handleSubmit = async () => {
     if (question !== "") {
-      uploadImage();
+      const url = await uploadImage();
       const config = {
         headers: {
           "Content-Type": "application/json",
@@ -110,7 +119,7 @@ const MyPostWidget = () => {
       };
       const body = {
         questionName: question,
-        questionUrl: imageUrl,
+        questionUrl: url,
         user: user,
         audio: recordings, 
       };
@@ -119,7 +128,7 @@ const MyPostWidget = () => {
         .then((res) => {
           console.log(res.data);
           // alert(res.data.message);
-          {imageUrl && (                       
+          {url && (                       
             window.location.href = "/home"
           )}  
         })
