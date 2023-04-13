@@ -28,6 +28,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import ReactTimeAgo from "react-time-ago";
 import AddAnswer from "../widgets/AddAnswer";
+// import axios from "axios";
 
 function LastSeen({ date }) {
   return (
@@ -59,6 +60,21 @@ function PostWidget({ post }) {
   const anslength = 6;
 
   // async function likeQuestion(id) {
+
+  //     const response = await fetch(`/questions/${id}/likes`, {
+  //       method: "PATCH",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: {
+  //         likes: [],
+  //       },
+  //     });
+  //     const data = await response.json();
+  //     console.log(data);
+    
+  // }
+  // async function likeQuestion(id) {
   //   try {
   //     const response = await fetch(`/questions/${id}/likes`, {
   //       method: "PATCH",
@@ -70,6 +86,18 @@ function PostWidget({ post }) {
   //       }),
   //     });
   //     const data = await response.json();
+  //     console.log(data);
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // }
+
+  // async function likeQuestion(id) {
+  //   try {
+  //     const response = await axios.patch(`/questions/${id}/likes`, {
+  //       likes: ["user1", "user2", "user3"],
+  //     });
+  //     const data = response.data;
   //     console.log(data);
   //   } catch (e) {
   //     console.log(e);
@@ -134,7 +162,11 @@ function PostWidget({ post }) {
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
             <Tooltip title="Upvote" placement="top" arrow>
-              <IconButton onClick={() => setIsUpVoted(!isUpVoted)
+              <IconButton onClick={() => 
+              {
+                setIsUpVoted(!isUpVoted)
+                // likeQuestion(post?._id);
+              }
               }>
                 {isUpVoted ? (
                   <ThumbUpIcon sx={{ color: green["A400"] }} />
