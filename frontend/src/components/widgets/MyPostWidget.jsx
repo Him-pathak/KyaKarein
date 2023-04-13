@@ -63,31 +63,12 @@ const MyPostWidget = () => {
 
   // setImageUrl("https://source.unsplash.com/random/300x300")
 
-  // const uploadImage = async () => {
-  //   if (image == null) return;
-  //   const imageRef = ref(storage, `images/${image.name + v4()}`);
-  //   try {
-  //     const snapshot = await uploadBytes(imageRef, image);
-  //     const url = await getDownloadURL(snapshot.ref);
-  //     setImageUrl(prevState => {
-  //       return { ...prevState, url };
-  //     });
-  //     alert(url);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
-
   const uploadImage = () => {
     if (image == null) return;
     const imageRef = ref(storage, `images/${image.name + v4()}`);
     uploadBytes(imageRef, image).then((snapshot) => {
       getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrl((prev) => {
-          return{...prev, url};
-        });
-        // alert(url);
-        // console.log(url);
+        setImageUrl(url);
       });
     });
   };
@@ -129,7 +110,6 @@ const MyPostWidget = () => {
       };
       const body = {
         questionName: question,
-        // questionUrl: "https://source.unsplash.com/random/300x300",
         questionUrl: imageUrl,
         user: user,
         audio: recordings, 
@@ -139,7 +119,9 @@ const MyPostWidget = () => {
         .then((res) => {
           console.log(res.data);
           // alert(res.data.message);
-          window.location.href = "/home";
+          {imageUrl && (                       
+            window.location.href = "/home"
+          )}  
         })
         .catch((e) => {
           console.log(e);
@@ -175,7 +157,10 @@ const MyPostWidget = () => {
           <Dropzone
             acceptedFiles=".jpg,.jpeg,.png"
             multiple={false}
-            onDrop={(acceptedFiles) => setImage(acceptedFiles[0])}
+            onDrop={(acceptedFiles) => {
+              setImage(acceptedFiles[0])
+              // uploadImage()
+            }}
           >
             {({ getRootProps, getInputProps }) => (
               <FlexBetween>
@@ -246,7 +231,7 @@ const MyPostWidget = () => {
         </FlexBetween>
 
         <Button
-          disabled={!question}
+          // disabled={!question}
           onClick={handleSubmit}
           sx={{
             color: palette.background.alt,
