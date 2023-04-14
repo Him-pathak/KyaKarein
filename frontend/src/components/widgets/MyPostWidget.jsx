@@ -34,12 +34,15 @@ import {
 } from "firebase/storage";
 import { storage } from "../../firebase";
 import { v4 } from "uuid";
+import { useTranslation } from "react-i18next";
 
 const recorder = new vmsg.Recorder({
   wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm",
 });
 
 const MyPostWidget = () => {
+  const { t } = useTranslation();
+
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
   const [imageUrl, setImageUrl] = useState("");
@@ -145,7 +148,7 @@ const MyPostWidget = () => {
         {/* <UserImage image={picturePath} /> */}
         <Avatar src={user?.photo} />
         <InputBase
-          placeholder="Ask anything on agriculture..."
+          placeholder={t('Ask_')}
           onChange={(e) => setQuestion(e.target.value)}
           value={question}
           sx={{
@@ -182,7 +185,7 @@ const MyPostWidget = () => {
                 >
                   <input {...getInputProps()} />
                   {!image ? (
-                    <p>Add Image Here</p>
+                    <p>{t('Add_Image_Here')}</p>
                   ) : (
                     <FlexBetween>
                       <Typography>{image.name}</Typography>
@@ -221,12 +224,12 @@ const MyPostWidget = () => {
             color={mediumMain}
             sx={{ "&:hover": { cursor: "pointer", color: medium } }}
           >
-            Image
+            {t('Image_')}
           </Typography>
         </FlexBetween>
 
         <FlexBetween gap="0.25rem">
-          <Tooltip title="audio" placement="top" arrow>
+          <Tooltip title={t('Audio_')} placement="top" arrow>
             <IconButton disabled={isLoading} onClick={record}>
               {/* currently colour changes on click but should be based on backend count */}
               {isRecording ? (
@@ -236,7 +239,7 @@ const MyPostWidget = () => {
               )}
             </IconButton>
           </Tooltip>
-          <Typography color={mediumMain}>Audio</Typography>
+          <Typography color={mediumMain}>{t('Audio_')}</Typography>
         </FlexBetween>
 
         <Button
@@ -249,7 +252,7 @@ const MyPostWidget = () => {
             "&:hover": { cursor: "pointer" },
           }}
         >
-          Add Question
+          {t('Add_Question')}
         </Button>
       </FlexBetween>
     </WidgetWrapper>

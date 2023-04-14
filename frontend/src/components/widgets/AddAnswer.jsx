@@ -22,12 +22,14 @@ import axios from "axios";
 import vmsg from "vmsg";
 import { red } from "@mui/material/colors";
 import "./css/Style.css";
+import { useTranslation } from "react-i18next";
 
 const recorder = new vmsg.Recorder({
   wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm",
 });
 
 const AddAnswer = () => {
+  const { t } = useTranslation();
 
   const [question, setQuestion] = useState("");
   const { palette } = useTheme();
@@ -98,7 +100,7 @@ const AddAnswer = () => {
         {/* <UserImage image={picturePath} /> */}
         <Avatar src={user?.photo} />
         <InputBase
-          placeholder="Add your answer..."
+          placeholder={t('Add_your_answer')}
           onChange={(e) => setQuestion(e.target.value)}
           value={question}
           sx={{
@@ -122,7 +124,7 @@ const AddAnswer = () => {
 
       <FlexBetween>
         <FlexBetween gap="0.25rem">
-          <Tooltip title="audio" placement="top" arrow>
+          <Tooltip title={t('Audio_')} placement="top" arrow>
             <IconButton disabled={isLoading} onClick={record}>
               {isRecording ? (
                 <StopCircle sx={{ color: red["A400"] }} />
@@ -131,7 +133,7 @@ const AddAnswer = () => {
               )}
             </IconButton>
           </Tooltip>
-          <Typography color={mediumMain}>Audio</Typography>
+          <Typography color={mediumMain}>{t('Audio_')}</Typography>
         </FlexBetween>
 
         <Button
@@ -144,7 +146,7 @@ const AddAnswer = () => {
             "&:hover": { cursor: "pointer" },
           }}
         >
-          <Typography>Add Answer</Typography>
+          <Typography>{t('Add_Answer')}</Typography>
         </Button>
       </FlexBetween>
     </WidgetWrapper>

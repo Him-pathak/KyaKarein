@@ -28,6 +28,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import ReactTimeAgo from "react-time-ago";
 import AddAnswer from "../widgets/AddAnswer";
+import { useTranslation } from "react-i18next";
 // import axios from "axios";
 
 function LastSeen({ date }) {
@@ -39,6 +40,8 @@ function LastSeen({ date }) {
 }
 
 function PostWidget({ post }) {
+  const { t } = useTranslation();
+
   const [isComments, setIsComments] = useState(false);
   const [isUpVoted, setIsUpVoted] = useState(false);
   const [isDownVoted, setIsDownVoted] = useState(false);
@@ -59,50 +62,7 @@ function PostWidget({ post }) {
   const picturePath = post.questionUrl;
   const anslength = 6;
 
-  // async function likeQuestion(id) {
 
-  //     const response = await fetch(`/questions/${id}/likes`, {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: {
-  //         likes: [],
-  //       },
-  //     });
-  //     const data = await response.json();
-  //     console.log(data);
-    
-  // }
-  // async function likeQuestion(id) {
-  //   try {
-  //     const response = await fetch(`/questions/${id}/likes`, {
-  //       method: "PATCH",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         likes: ["user1", "user2", "user3"],
-  //       }),
-  //     });
-  //     const data = await response.json();
-  //     console.log(data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
-
-  // async function likeQuestion(id) {
-  //   try {
-  //     const response = await axios.patch(`/questions/${id}/likes`, {
-  //       likes: ["user1", "user2", "user3"],
-  //     });
-  //     const data = response.data;
-  //     console.log(data);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
 
   return (
     <WidgetWrapper m="2rem 0">
@@ -161,7 +121,7 @@ function PostWidget({ post }) {
       <FlexBetween mt="0.25rem" mb="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
-            <Tooltip title="Upvote" placement="top" arrow>
+            <Tooltip title={t('Upvote_')} placement="top" arrow>
               <IconButton onClick={() => 
               {
                 setIsUpVoted(!isUpVoted)
@@ -179,7 +139,7 @@ function PostWidget({ post }) {
           </FlexBetween>
 
           <FlexBetween gap="0.3rem">
-            <Tooltip title="Downvote" placement="top" arrow>
+            <Tooltip title={t('Downvote_')} placement="top" arrow>
               <IconButton onClick={() => setIsDownVoted(!isDownVoted)}>
                 {isDownVoted ? (
                   <ThumbDownIcon sx={{ color: red["A400"] }} />
@@ -192,7 +152,7 @@ function PostWidget({ post }) {
           </FlexBetween>
 
           <FlexBetween gap="0.3rem">
-            <Tooltip title="Answers" placement="top" arrow>
+            <Tooltip title={t('Answers_')} placement="top" arrow>
               <IconButton onClick={() => setIsComments(!isComments)}>
                 <ChatBubbleOutlineOutlined />
               </IconButton>
@@ -200,7 +160,7 @@ function PostWidget({ post }) {
             <Typography>{anslength}</Typography>
 
             <Box ml={"0.2rem"}>
-              <Tooltip title="AddAnswer" placement="top" arrow>
+              <Tooltip title={t('AddAnswer_')} placement="top" arrow>
                 <IconButton
                   onClick={() => {
                     setIsModalOpen(true);
@@ -291,7 +251,7 @@ function PostWidget({ post }) {
                     
                   <FlexBetween gap="1rem">
                     <FlexBetween gap="0.3rem">
-                      <Tooltip title="Upvote" placement="top" arrow>
+                      <Tooltip title={t('Upvote_')} placement="top" arrow>
                         <IconButton onClick={() => setIsUpVoted(!isUpVoted)}>
                           {isUpVoted ? (
                             <ThumbUpIcon sx={{ color: green["A400"] }} />

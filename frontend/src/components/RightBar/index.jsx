@@ -2,8 +2,11 @@ import React from "react";
 import WidgetWrapper from "../../utils/WidgetWrapper";
 import FlexBetween from "../../utils/FlexBetween";
 import { Box, Button, Divider, Typography, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 function RightBar() {
+  const { t } = useTranslation();
+
   const { palette } = useTheme();
   const main = palette.neutral.main;
   // const neutralLight = palette.neutral.light;
@@ -48,7 +51,7 @@ function RightBar() {
             },
           }}
         >
-          Mandi
+          {t('Mandi_')}
         </Typography>
       </Box>
 
@@ -65,7 +68,7 @@ function RightBar() {
             },
           }}
         >
-          Commodity
+          {t('Commodity_')}
         </Typography>
         <Typography
           color={main}
@@ -77,7 +80,7 @@ function RightBar() {
             },
           }}
         >
-          Prices/Qui
+          {t('Prices_')}/{t('Quintal_')}
         </Typography>
       </FlexBetween>
 
@@ -125,7 +128,7 @@ function RightBar() {
             },
           }}
         >
-          Ajwan
+          {t('Ajwan_')}
         </Typography>
         <Typography
           color={main}
@@ -153,7 +156,7 @@ function RightBar() {
             },
           }}
         >
-          Arhar
+          {t('Arhar_')}
         </Typography>
         <Typography
           color={main}
@@ -181,7 +184,7 @@ function RightBar() {
             },
           }}
         >
-          Bajra
+          {t('Bajra_')}
         </Typography>
         <Typography
           color={main}
@@ -209,7 +212,7 @@ function RightBar() {
             },
           }}
         >
-          Bhindi
+          {t('Bhindi_')}
         </Typography>
         <Typography
           color={main}
@@ -237,7 +240,7 @@ function RightBar() {
             },
           }}
         >
-          Capsicum
+          {t('Capsicum_')}
         </Typography>
         <Typography
           color={main}
@@ -265,7 +268,7 @@ function RightBar() {
             },
           }}
         >
-          Coconut
+          {t('Coconut_')}
         </Typography>
         <Typography
           color={main}
@@ -293,7 +296,7 @@ function RightBar() {
             },
           }}
         >
-          Jute
+          {t('Jute_')}
         </Typography>
         <Typography
           color={main}
@@ -321,7 +324,7 @@ function RightBar() {
             },
           }}
         >
-          Mustard
+          {t('Mustard_')}
         </Typography>
         <Typography
           color={main}
@@ -349,7 +352,7 @@ function RightBar() {
             },
           }}
         >
-          Wheat
+          {t('Wheat_')}
         </Typography>
         <Typography
           color={main}

@@ -5,8 +5,10 @@ import DynamicFeedOutlinedIcon from "@mui/icons-material/DynamicFeedOutlined";
 import SubscriptionsOutlinedIcon from "@mui/icons-material/Subscriptions";
 import FilterDramaIcon from "@mui/icons-material/FilterDrama";
 import { Box, Divider, FormControl, IconButton, InputBase, MenuItem, Select, Typography, useTheme } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 function SideBar() {
+  const { t } = useTranslation();
   const { palette } = useTheme();
   const main = palette.neutral.main;
   const neutralLight = palette.neutral.light;
@@ -70,7 +72,7 @@ function SideBar() {
               },
             }}
           >
-            Tutorials
+            {t('Tutorials_')}
           </Typography>
 
           <FormControl variant="standard" value={val}>
@@ -150,7 +152,7 @@ function SideBar() {
               },
             }}
           >
-            Weather
+            {t('Weather_')}
           </Typography>
         </FlexBetween>
       </Box>

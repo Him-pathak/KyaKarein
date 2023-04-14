@@ -24,6 +24,18 @@ import { setMode, setLogout } from "../../state/userSlice";
 import { useNavigate } from "react-router-dom";
 import FlexBetween from "../../utils/FlexBetween";
 import { selectUser } from "../../state/userSlice";
+import { useTranslation } from "react-i18next";
+
+const languages = [
+  { value: "", text: "Options" },
+  { value: "en", text: "English" },
+  { value: "hi", text: "Hindi" },
+  { value: "bn", text: "Bengali" },
+  { value: "mr", text: "Marathi" },
+  { value: "ta", text: "Tamil" },
+  { value: "pa", text: "Punjabi" },
+  { value: "gu", text: "Gujarati" },
+];
 
 const Navbar = () => {
   const [isMobileMenuToggled, setIsMobileMenuToggled] = useState(false);
@@ -39,8 +51,17 @@ const Navbar = () => {
   const primaryLight = theme.palette.primary.light;
   const alt = theme.palette.background.alt;
 
-  const fullName = `${user?.userName}`;
+  const { t } = useTranslation();
 
+  const [lang, setLang] = useState("en");
+
+  const handleChange = (e) => {
+    setLang(e.target.value);
+    let loc = "http://localhost:6001/home/";
+    window.location.replace(loc + "?lng=" + e.target.value);
+  };
+
+  const fullName = `${user?.userName}`;
 
   return (
     <FlexBetween padding="0.5rem 6%" backgroundColor={alt}>
@@ -89,11 +110,11 @@ const Navbar = () => {
               )}
             </IconButton>
           </Tooltip>
-          <Tooltip title="Notifications" placement="bottom" arrow>
+          {/* <Tooltip title="Notifications" placement="bottom" arrow>
             <IconButton>
               <Notifications sx={{ fontSize: "25px" }} />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
           <FormControl variant="standard" value={fullName}>
             <Select
               value={fullName}
@@ -119,10 +140,43 @@ const Navbar = () => {
               <MenuItem
               //   onClick={() => dispatch(setLogout())}
               >
-                Log Out
+                {t("Log_Out")}
               </MenuItem>
             </Select>
           </FormControl>
+
+          {/* language */}
+
+          <Box ml={"0.5rem"}>
+            <FormControl variant="standard" value={lang}>
+              <Select
+                value={lang}
+                sx={{
+                  backgroundColor: neutralLight,
+                  width: "100px",
+                  borderRadius: "0.25rem",
+                  p: "0.25rem 1rem",
+                  "& .MuiSvgIcon-root": {
+                    pr: "0.25rem",
+                    width: "3rem",
+                  },
+                  "& .MuiSelect-select:focus": {
+                    backgroundColor: neutralLight,
+                  },
+                }}
+                onChange={handleChange}
+                input={<InputBase />}
+              >
+                {languages.map((item) => {
+                  return (
+                    <MenuItem key={item.value} value={item.value}>
+                      <Typography>{item.text}</Typography>
+                    </MenuItem>
+                  );
+                })}
+              </Select>
+            </FormControl>
+          </Box>
         </FlexBetween>
       ) : (
         <IconButton
@@ -196,10 +250,20 @@ const Navbar = () => {
                   <Typography>{fullName}</Typography>
                 </MenuItem>
                 <MenuItem onClick={() => dispatch(setLogout())}>
-                  Log Out
+                  {t("Log_Out")}
                 </MenuItem>
               </Select>
             </FormControl>
+
+            {/* <select value={lang} onChange={handleChange}>
+              {languages.map((item) => {
+                return (
+                  <option key={item.value} value={item.value}>
+                    {item.text}
+                  </option>
+                );
+              })}
+            </select> */}
           </FlexBetween>
         </Box>
       )}
