@@ -16,13 +16,10 @@ function LoginPage() {
   return (
     <div className="login-container">
       <div className="login-content">
-        <img
-          src="https://video-public.canva.com/VAD8lt3jPyI/v/ec7205f25c.gif"
-          alt="logo"
-        />
+        
         <button onClick={handleSubmit} className="btn-login">
-          Login to continue
-        </button>
+          Login With Google 
+         </button>
       </div>
     </div>
   );

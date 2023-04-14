@@ -243,11 +243,11 @@ function PostWidget({ post }) {
           </Box>
         </Modal>
 
-        <Tooltip title="Share" placement="top" arrow>
+        {/* <Tooltip title="Share" placement="top" arrow>
           <IconButton>
             <ShareOutlined />
           </IconButton>
-        </Tooltip>
+        </Tooltip> */}
       </FlexBetween>
 
       <Divider />
