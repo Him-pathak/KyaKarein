@@ -1,0 +1,3 @@
+.MuiBox-root::-webkit-scrollbar {
+    display: none;
+  }
