@@ -392,7 +392,7 @@ function RightBar() {
             "&:hover": { cursor: "pointer" },
           }}
         >
-          Show more
+          {t('Show_more')}
         </Button>
       </Box>
     </WidgetWrapper>

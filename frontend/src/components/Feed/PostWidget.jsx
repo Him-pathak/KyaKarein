@@ -21,7 +21,7 @@ import WidgetWrapper from "../../utils/WidgetWrapper";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUser } from "../../state/userSlice";
-import { Avatar } from "@material-ui/core";
+import Avatar from '@mui/material/Avatar';
 import ReactHtmlParser from "html-react-parser";
 import { green, red } from "@mui/material/colors";
 import CloseIcon from "@mui/icons-material/Close";
@@ -199,7 +199,7 @@ function PostWidget({ post }) {
               borderRadius: "0.75rem",
             }}
           >
-            <AddAnswer />
+            <AddAnswer post={post} />
           </Box>
         </Modal>
 

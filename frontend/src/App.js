@@ -31,6 +31,7 @@ function App() {
             uid: authUser.uid,
           })
           );
+          // Navigate("/home");
           console.log("AuthUser", authUser);
         }
       });
@@ -46,7 +47,7 @@ function App() {
             <Route path="/" element={<LoginPage />} />
             <Route
               path="/home"
-              element={user? <HomePage /> : <LoginPage/>}
+              element={user? <HomePage /> : <Navigate to="/" />}
             />
             {/* <Route
             path="/weather"

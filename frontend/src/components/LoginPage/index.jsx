@@ -2,12 +2,16 @@ import React from "react";
 import "./Login.css";
 import { signInWithPopup } from "firebase/auth";
 import { auth, provider } from "../../firebase"
+import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
+  const navigate = useNavigate();
+
   const handleSubmit = async () => {
     await signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result);
+        navigate("/home");
       })
       .catch((error) => {
         console.log(error);

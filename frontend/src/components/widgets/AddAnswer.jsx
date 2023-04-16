@@ -12,7 +12,7 @@ import {
   useMediaQuery,
   Tooltip,
 } from "@mui/material";
-import { Avatar } from "@material-ui/core";
+import Avatar from '@mui/material/Avatar';
 import FlexBetween from "../../utils/FlexBetween";
 import WidgetWrapper from "../../utils/WidgetWrapper"; 
 import { useState } from "react";
@@ -28,10 +28,10 @@ const recorder = new vmsg.Recorder({
   wasmURL: "https://unpkg.com/vmsg@0.3.0/vmsg.wasm",
 });
 
-const AddAnswer = () => {
+const AddAnswer = ({ post }) => {
   const { t } = useTranslation();
 
-  const [question, setQuestion] = useState("");
+  const [answer, setAnswer] = useState("");
   const { palette } = useTheme();
 
   const isNonMobileScreens = useMediaQuery("(min-width: 1000px)");
@@ -69,27 +69,28 @@ const AddAnswer = () => {
   };
 
   const handleSubmit = async () => {
-    if (question !== "") {
+    if (post?._id && answer !== "") {
       const config = {
         headers: {
           "Content-Type": "application/json",
         },
       };
       const body = {
-        questionName: question,
-        questionUrl: "https://source.unsplash.com/random/300x300",
+        answer: answer,
+        questionId: post?._id,
         user: user,
+        audio: recordings, 
       };
       await axios
-        .post("/api/questions", body, config)
+        .post("/api/answers", body, config)
         .then((res) => {
           console.log(res.data);
-          alert(res.data.message);
-          window.location.href = "/";
+          alert("Answer added succesfully");
+          // setIsModalOpen(false);
+          window.location.href = "/home";
         })
         .catch((e) => {
           console.log(e);
-          alert("Error in adding question");
         });
     }
   };
@@ -101,8 +102,8 @@ const AddAnswer = () => {
         <Avatar src={user?.photo} />
         <InputBase
           placeholder={t('Add_your_answer')}
-          onChange={(e) => setQuestion(e.target.value)}
-          value={question}
+          onChange={(e) => setAnswer(e.target.value)}
+          value={answer}
           sx={{
             width: "100%",
             backgroundColor: palette.neutral.light,
@@ -137,7 +138,7 @@ const AddAnswer = () => {
         </FlexBetween>
 
         <Button
-          disabled={!question}
+          disabled={!answer}
           onClick={handleSubmit}
           sx={{
             color: palette.background.alt,

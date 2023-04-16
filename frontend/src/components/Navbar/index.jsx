@@ -94,7 +94,7 @@ const Navbar = () => {
             padding="0.1rem 1.5rem"
           >
             <InputBase
-              placeholder="Search Product, Crop, Brand etc.. "
+              placeholder={t('Search_')}
               sx={{ width: "100%" }}
             />
             <IconButton>

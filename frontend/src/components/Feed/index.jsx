@@ -1,20 +1,3 @@
-// import MyPostWidget from "../widgets/MyPostWidget";
-// import PostsWidget from "../widgets/MyPostWidget";
-// import { Box } from "@mui/material";
-
-// const picturePath = `https://source.unsplash.com/random/60x60`;
-
-// function Feed() {
-//   return (
-//     <Box>
-//         <MyPostWidget picturePath={picturePath}/>
-//         <PostsWidget/>
-//     </Box>
-//   )
-// }
-
-// export default Feed;
-
 import React, { useEffect, useState } from "react";
 import "./css/Feed.css";
 import PostWidget from "./PostWidget";

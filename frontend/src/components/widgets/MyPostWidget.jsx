@@ -16,7 +16,7 @@ import {
   useMediaQuery,
   Tooltip,
 } from "@mui/material";
-import { Avatar } from "@material-ui/core";
+import Avatar from '@mui/material/Avatar';
 import FlexBetween from "../../utils/FlexBetween";
 import Dropzone from "react-dropzone";
 import WidgetWrapper from "../../utils/WidgetWrapper"; //
